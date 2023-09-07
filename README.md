@@ -1,10 +1,8 @@
 # Deacuerdo!
 
 > Te paso estar entre amigos y querer hacer algo como ver una peli, comer, hacer un pedido u organizar una salida?
-no se peleen, usen DeaCuerdo! y diviertanse decidiendo juntos.
-<br>
-> DeaCuerdo! Es un facilitador para decisiones en grupo que permite evitar discusiones y llegar a un acuerdo rápidamente, una herramienta innovadora que reemplaza las peleas y discusiones haciendo anónimas las elecciones de los participantes.
-<br>
+no se peleen, usen DeaCuerdo! y diviertanse decidiendo juntos.  
+DeaCuerdo! Es un facilitador para decisiones en grupo que permite evitar discusiones y llegar a un acuerdo rápidamente, una herramienta innovadora que reemplaza las peleas y discusiones haciendo anónimas las elecciones de los participantes.  
 Con DeaCuerdo! Mantene tus relaciones sanas.
 
 Links Utiles:
