@@ -1,0 +1,31 @@
+name: Test and Build 
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test_and_build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [18]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3.3.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install project
+        run: npm install
+      - name: Check for lint Errors
+        run: npm run lint
+      - name: Run the test suite
+        run: npm run test
+      - name: Build the project
+        run: npm run build --if-present
