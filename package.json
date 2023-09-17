@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "release": "export $(cat .env); release-it"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
@@ -30,6 +31,16 @@
   "devDependencies": {
     "@babel/preset-env": "^7.22.20",
     "@jest/globals": "^29.7.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "release-it": "^16.1.5"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    },
+    "git": {
+      "tagName": "v${version}",
+      "commitMessage": ":bookmark: v${version}"
+    }
   }
 }
