@@ -49,8 +49,11 @@ function RoomCreationCardContent() {
             por participante
           </InputGroup.Text>
         </InputGroup>
-        <Button className='float-end' variant='primary' type='submit'>
+        <Button className='float-end rounded-pill px-3' variant='primary' type='submit'>
           Continuar
+        </Button>
+        <Button class="btn btn-danger rounded-pill px-3">
+          Cancelar
         </Button>
       </Form>
     </Card.Body>
