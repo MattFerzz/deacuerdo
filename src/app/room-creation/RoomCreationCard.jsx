@@ -20,6 +20,10 @@ function RoomCreationCardContent() {
     router.push(`/room/${settings.id()}`)
   }
 
+  const handleCancel = () => {
+    router.push('/');
+  }
+
   return (
     <Card.Body>
       <Card.Title>Configuración de la sala</Card.Title>
@@ -52,7 +56,7 @@ function RoomCreationCardContent() {
         <Button className='float-end rounded-pill px-3' variant='primary' type='submit'>
           Continuar
         </Button>
-        <Button class="btn btn-danger rounded-pill px-3">
+        <Button className="btn btn-danger rounded-pill px-3" type="button" onClick={handleCancel}>
           Cancelar
         </Button>
       </Form>
