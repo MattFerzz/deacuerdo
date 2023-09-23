@@ -24,7 +24,7 @@ describe('DecisionHallway', () => {
     const hallwaySystem = new DecisionHallway()
     hallwaySystem.add(room)
 
-    expect(hallwaySystem.roomAtId(0)).toBe(room)
+    expect(hallwaySystem.roomAtId(1)).toBe(room)
   })
 
   it('should thow an error when try to find a room with a given id that does not include', () => {
