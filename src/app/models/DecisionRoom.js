@@ -1,26 +1,31 @@
-class DecisionRoom{
+class DecisionRoom {
+  #id
 
-    #id
-    
-    static autoIncrementalId = 0
-    static nextId(){ return this.autoIncrementalId ++ }
-    
-    static fromSettings(aDecisionRoomSettings){
-        return new this(this.nextId())
-    }
+  #settings
 
-    constructor(anId){
-        this.#id = anId
-    }
+  static autoIncrementalId = 0
 
-    id(){
-        return this.#id
-    }
+  static nextId() {
+    this.autoIncrementalId += 1
+    return this.autoIncrementalId
+  }
 
-    identifiedAs(anId){
-        return this.#id === anId
-    }
+  static fromSettings(aDecisionRoomSettings) {
+    return new this(this.nextId(), aDecisionRoomSettings)
+  }
 
+  constructor(anId, aDecisionRoomSettings) {
+    this.#id = anId
+    this.#settings = aDecisionRoomSettings
+  }
+
+  id() {
+    return this.#id
+  }
+
+  identifiedAs(anId) {
+    return this.#id === anId
+  }
 }
 
 export default DecisionRoom

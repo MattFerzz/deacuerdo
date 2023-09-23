@@ -1,35 +1,34 @@
 class DecisionHallway {
-    
-    #rooms
+  #rooms
 
-    constructor() {
-        this.#rooms = []
-    }
+  constructor() {
+    this.#rooms = []
+  }
 
-    add(aRoom){
-        this.#rooms.push(aRoom)
-    }
+  add(aRoom) {
+    this.#rooms.push(aRoom)
+  }
 
-    includes(aRoom){
-        return this.#rooms.includes(aRoom)
-    }
+  includes(aRoom) {
+    return this.#rooms.includes(aRoom)
+  }
 
-    roomAtId(anId){
-        return this.withRoomAtId(anId, 
-            roomToReturn => roomToReturn,
-            () => {throw new Error("Room not found")})
-    }
+  roomAtId(anId) {
+    return this.withRoomAtId(
+      anId,
+      (roomToReturn) => roomToReturn,
+      () => { throw new Error('Room not found') },
+    )
+  }
 
-    withRoomAtId(anId, foundClosure, noneClosure){
-        const foundRoom = this.#rooms.find(
-            room => room.identifiedAs(anId));
+  withRoomAtId(anId, foundClosure, noneClosure) {
+    const foundRoom = this.#rooms.find(
+      (room) => room.identifiedAs(anId),
+    )
 
-        if(foundRoom === undefined)
-            return noneClosure();
-        else
-            return foundClosure(foundRoom);
-    }
-
+    if (foundRoom === undefined) { return noneClosure() }
+    return foundClosure(foundRoom)
+  }
 }
 
 export default DecisionHallway
