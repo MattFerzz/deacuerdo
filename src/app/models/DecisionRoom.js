@@ -23,6 +23,10 @@ class DecisionRoom {
     return this.#id
   }
 
+  description() {
+    return `${this.#id}-${this.#settings.name()}`
+  }
+
   identifiedAs(anId) {
     return this.#id === anId
   }
