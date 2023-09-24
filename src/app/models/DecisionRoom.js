@@ -27,6 +27,22 @@ class DecisionRoom {
     return `${this.#id}-${this.#settings.name()}`
   }
 
+  name() {
+    return this.#settings.name()
+  }
+
+  category() {
+    return this.#settings.category()
+  }
+
+  userAmount() {
+    return this.#settings.userAmount()
+  }
+
+  optionsPerUser() {
+    return this.#settings.optionsPerUser()
+  }
+
   identifiedAs(anId) {
     return this.#id === anId
   }
