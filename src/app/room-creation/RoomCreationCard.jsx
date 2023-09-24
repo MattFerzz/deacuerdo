@@ -1,23 +1,39 @@
 'use client'
 
+import React, { useState } from 'react'; 
 import { useRouter } from 'next/navigation'
 import {
   Button,
   Card, Form,
-  FormGroup, InputGroup,
+  FormGroup, InputGroup, Modal,
 } from 'react-bootstrap'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
 function RoomCreationCardContent() {
   const router = useRouter()
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
       acc[input.id] = input.value
       return acc
     }, {})
-    const settings = DecisionRoomSettings.fromFormData(formData)
-    router.push(`/room/${settings.id()}`)
+
+    const userAmount = parseInt(formData['user-amount'], 10);
+    const optionsPerUser = parseInt(formData['options-per-user'], 10);
+
+    if (userAmount < 0) {
+      setErrorMessage('La cantidad de participantes no puede ser negativa.');
+      setErrorModalVisible(true);
+    } else if (optionsPerUser < 0) {
+      setErrorMessage('La cantidad de opciones por participante no puede ser negativa.');
+      setErrorModalVisible(true);
+    } else {
+      const settings = DecisionRoomSettings.fromFormData(formData);
+      router.push(`/room/${settings.id()}`);
+    }
   }
 
   return (
@@ -53,6 +69,20 @@ function RoomCreationCardContent() {
           Continuar
         </Button>
       </Form>
+
+      <Modal show={errorModalVisible} onHide={() => setErrorModalVisible(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{errorMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setErrorModalVisible(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal> 
     </Card.Body>
 
   )
