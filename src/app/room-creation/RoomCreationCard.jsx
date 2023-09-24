@@ -24,11 +24,8 @@ function RoomCreationCardContent() {
     const userAmount = parseInt(formData['user-amount'], 10);
     const optionsPerUser = parseInt(formData['options-per-user'], 10);
 
-    if (userAmount < 0) {
-      setErrorMessage('La cantidad de participantes no puede ser negativa.');
-      setErrorModalVisible(true);
-    } else if (optionsPerUser < 0) {
-      setErrorMessage('La cantidad de opciones por participante no puede ser negativa.');
+    if (userAmount < 0 || optionsPerUser < 0) {
+      setErrorMessage('La cantidad de participantes o de opciones por participante no pueden ser negativas.');
       setErrorModalVisible(true);
     } else {
       const settings = DecisionRoomSettings.fromFormData(formData);
@@ -70,7 +67,10 @@ function RoomCreationCardContent() {
         </Button>
       </Form>
 
-      <Modal show={errorModalVisible} onHide={() => setErrorModalVisible(false)}>
+      <Modal 
+      show={errorModalVisible} 
+      onHide={() => setErrorModalVisible(false)}
+      style={{ backgroundColor: 'rgb(234,234,255)' }}>
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
@@ -78,7 +78,7 @@ function RoomCreationCardContent() {
           <p>{errorMessage}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setErrorModalVisible(false)}>
+          <Button className= "btn btn-secondary rounded-pill px-3" variant="secondary" onClick={() => setErrorModalVisible(false)}>
             Cerrar
           </Button>
         </Modal.Footer>
