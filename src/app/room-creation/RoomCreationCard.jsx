@@ -7,6 +7,8 @@ import {
   Card, Form,
   FormGroup, InputGroup, Modal,
 } from 'react-bootstrap'
+import DecisionHallway from '../models/DecisionHallway'
+import DecisionRoom from '../models/DecisionRoom'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
 function RoomCreationCardContent() {
@@ -29,7 +31,9 @@ function RoomCreationCardContent() {
       setErrorModalVisible(true)
     } else {
       const settings = DecisionRoomSettings.fromFormData(formData)
-      router.push(`/room/${settings.id()}`)
+      const room = DecisionRoom.fromSettings(settings)
+      DecisionHallway.decisionHallway.add(room)
+      router.push(`/room/${room.id()}`)
     }
   }
 
@@ -91,6 +95,7 @@ function RoomCreationCardContent() {
           </Button>
         </Modal.Footer>
       </Modal>
+
     </Card.Body>
 
   )
