@@ -20,7 +20,7 @@ describe('DecisionRoom', () => {
     expect(room.description()).toBe('1-Fries Toppings')
   })
 
-  it('asdas', () => {
+  it('should add users to a selected room', () => {
     room.addUser(firstUserToAdd)
     room.addUser(secondtUserToAdd)
 
