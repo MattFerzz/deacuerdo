@@ -3,6 +3,8 @@ class DecisionRoom {
 
   #settings
 
+  #users
+
   static autoIncrementalId = 0
 
   static nextId() {
@@ -17,6 +19,7 @@ class DecisionRoom {
   constructor(anId, aDecisionRoomSettings) {
     this.#id = anId
     this.#settings = aDecisionRoomSettings
+    this.#users = []
   }
 
   id() {
@@ -45,6 +48,14 @@ class DecisionRoom {
 
   identifiedAs(anId) {
     return this.#id === anId
+  }
+
+  addUser(anUser) {
+    this.#users.push(anUser)
+  }
+
+  numberOfWaitingUsers() {
+    return this.#users.length
   }
 }
 

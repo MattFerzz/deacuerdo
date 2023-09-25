@@ -4,6 +4,7 @@ import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
 import DecisionHallway from '../../models/DecisionHallway'
+import User from '../../models/User'
 
 function RoomWelcomeCardContent({ id }) {
   const room = DecisionHallway.decisionHallway.roomAtId(Number(id))
@@ -15,8 +16,8 @@ function RoomWelcomeCardContent({ id }) {
       return acc
     }, {})
 
-    // const user = User.named(formData.userName)
-    // room.addUser(user)
+    const user = User.named(formData.userName)
+    room.addUser(user)
   }
 
   return (
@@ -26,7 +27,7 @@ function RoomWelcomeCardContent({ id }) {
         {' '}
         {room.description()}
       </Card.Title>
-      <Card.Header>Settings</Card.Header>
+      <Card.Header>Configuraciones de sala</Card.Header>
       <ListGroup flush>
         <ListGroup.Item>{room.name()}</ListGroup.Item>
         <ListGroup.Item>{room.category()}</ListGroup.Item>
