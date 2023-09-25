@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["next/core-web-vitals", "airbnb"],
+  "extends": ["next/babel", "next/core-web-vitals", "airbnb"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
