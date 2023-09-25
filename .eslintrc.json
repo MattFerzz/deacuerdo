@@ -3,7 +3,10 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["next/core-web-vitals", "airbnb"],
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -11,10 +14,18 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": [
+    "react"
+  ],
   "rules": {
-    "semi": ["error", "never"],
-    "jsx-quotes": ["error", "prefer-single"],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
   }
