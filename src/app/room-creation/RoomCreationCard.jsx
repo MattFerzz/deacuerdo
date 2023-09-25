@@ -7,6 +7,8 @@ import {
   Card, Form,
   FormGroup, InputGroup, Modal,
 } from 'react-bootstrap'
+import DecisionHallway from '../models/DecisionHallway'
+import DecisionRoom from '../models/DecisionRoom'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
 function RoomCreationCardContent() {
@@ -20,7 +22,7 @@ function RoomCreationCardContent() {
       acc[input.id] = input.value
       return acc
     }, {})
-
+    
     const userAmount = parseInt(formData['user-amount'], 10);
     const optionsPerUser = parseInt(formData['options-per-user'], 10);
 
@@ -31,6 +33,7 @@ function RoomCreationCardContent() {
       const settings = DecisionRoomSettings.fromFormData(formData);
       router.push(`/room/${settings.id()}`);
     }
+
   }
 
   return (
