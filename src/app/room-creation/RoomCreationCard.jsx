@@ -1,20 +1,18 @@
 'use client'
 
-import React, { useState } from 'react'; 
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import {
   Button,
   Card, Form,
   FormGroup, InputGroup, Modal,
 } from 'react-bootstrap'
-import DecisionHallway from '../models/DecisionHallway'
-import DecisionRoom from '../models/DecisionRoom'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
 function RoomCreationCardContent() {
   const router = useRouter()
-  const [errorModalVisible, setErrorModalVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorModalVisible, setErrorModalVisible] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -22,22 +20,21 @@ function RoomCreationCardContent() {
       acc[input.id] = input.value
       return acc
     }, {})
-    
-    const userAmount = parseInt(formData['user-amount'], 10);
-    const optionsPerUser = parseInt(formData['options-per-user'], 10);
+
+    const userAmount = parseInt(formData['user-amount'], 10)
+    const optionsPerUser = parseInt(formData['options-per-user'], 10)
 
     if (userAmount < 0 || optionsPerUser < 0) {
-      setErrorMessage('La cantidad de participantes o de opciones por participante no pueden ser negativas.');
-      setErrorModalVisible(true);
+      setErrorMessage('La cantidad de participantes o de opciones por participante no pueden ser negativas.')
+      setErrorModalVisible(true)
     } else {
-      const settings = DecisionRoomSettings.fromFormData(formData);
-      router.push(`/room/${settings.id()}`);
+      const settings = DecisionRoomSettings.fromFormData(formData)
+      router.push(`/room/${settings.id()}`)
     }
-
   }
 
   const handleCancel = () => {
-    router.push('/');
+    router.push('/')
   }
 
   return (
@@ -72,15 +69,16 @@ function RoomCreationCardContent() {
         <Button className='float-end rounded-pill px-3' variant='primary' type='submit'>
           Continuar
         </Button>
-        <Button className="btn btn-danger rounded-pill px-3" type="button" onClick={handleCancel}>
+        <Button className='btn btn-danger rounded-pill px-3' type='button' onClick={handleCancel}>
           Cancelar
         </Button>
       </Form>
 
-      <Modal 
-      show={errorModalVisible} 
-      onHide={() => setErrorModalVisible(false)}
-      style={{ backgroundColor: 'rgb(234,234,255)' }}>
+      <Modal
+        show={errorModalVisible}
+        onHide={() => setErrorModalVisible(false)}
+        style={{ backgroundColor: 'rgb(234,234,255)' }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
@@ -88,11 +86,11 @@ function RoomCreationCardContent() {
           <p>{errorMessage}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button className= "btn btn-secondary rounded-pill px-3" variant="secondary" onClick={() => setErrorModalVisible(false)}>
+          <Button className='btn btn-secondary rounded-pill px-3' variant='secondary' onClick={() => setErrorModalVisible(false)}>
             Cerrar
           </Button>
         </Modal.Footer>
-      </Modal> 
+      </Modal>
     </Card.Body>
 
   )
