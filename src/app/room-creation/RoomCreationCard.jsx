@@ -6,6 +6,8 @@ import {
   Card, Form,
   FormGroup, InputGroup,
 } from 'react-bootstrap'
+import DecisionHallway from '../models/DecisionHallway'
+import DecisionRoom from '../models/DecisionRoom'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
 function RoomCreationCardContent() {
@@ -17,7 +19,9 @@ function RoomCreationCardContent() {
       return acc
     }, {})
     const settings = DecisionRoomSettings.fromFormData(formData)
-    router.push(`/room/${settings.id()}`)
+    const room = DecisionRoom.fromSettings(settings)
+    DecisionHallway.decisionHallway.add(room)
+    router.push(`/room/${room.id()}`)
   }
 
   return (

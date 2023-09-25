@@ -1,6 +1,8 @@
 class DecisionHallway {
   #rooms
 
+  static decisionHallway = new this()
+
   constructor() {
     this.#rooms = []
   }
