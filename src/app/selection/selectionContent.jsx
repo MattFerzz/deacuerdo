@@ -10,19 +10,25 @@ function SelectionContent() {
   const searchParams = useSearchParams()
  
   const sala = searchParams.get('name')
-  const optionsPerUser = searchParams.get('options')
+  const optionsPerUser = Number(searchParams.get('options'))
 
     return (
         <Card.Body className='text-center'>
-        <Card.Title><h2>Bienvenido a sala {sala} por favor genere su selección.Introduzca {optionsPerUser} opciones</h2></Card.Title>
+        <Card.Title>
+          <h2>Bienvenido a la sala {sala}.</h2>
+          <h2>Por favor genere su selección.</h2>
+        </Card.Title>
         <Form onSubmit={(event) => handleSubmit(event)}>
-        <FormGroup className='mb-3'>
-          <Form.Control placeholder='Ej: introducí tu opcion 1' id='opcion1' />
-        </FormGroup>
+        {Array.from({ length: optionsPerUser }).map((_, i) => (
+          <FormGroup className='mb-3' key={i}>
+          <Form.Control placeholder={`Ej: introducí tu opcion numero ${i + 1}`} id={i} />
+          </FormGroup>
+        ))
+        }
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
         </Button>
-      </Form>
+        </Form>
       </Card.Body>
     )
 }
