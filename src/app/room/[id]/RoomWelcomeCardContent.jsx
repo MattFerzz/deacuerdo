@@ -20,7 +20,7 @@ function RoomWelcomeCardContent({ id }) {
 
     const user = User.named(formData.userName)
     room.addUser(user)
-    router.push(`/selection`)
+    router.push(`/selection?name=${room.description()}&options=${room.optionsPerUser()}`)
   }
 
   return (
