@@ -21,7 +21,7 @@ function SelectionContent() {
         <Form onSubmit={(event) => handleSubmit(event)}>
         {Array.from({ length: optionsPerUser }).map((_, i) => (
           <FormGroup className='mb-3' key={i}>
-          <Form.Control placeholder={`Ej: introducí tu opcion numero ${i + 1}`} id={i} />
+          <Form.Control placeholder={`Opción ${i + 1}`} id={i} />
           </FormGroup>
         ))
         }
