@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-filename-extension */
 import AppBaseCard from './components/AppBaseCard'
 import './globals.scss'
+import DecisionHallway from './models/DecisionHallway'
+
+DecisionHallway.getInstance()
 
 export const metadata = {
   title: 'Deacuerdo!',
