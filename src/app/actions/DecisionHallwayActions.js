@@ -7,7 +7,7 @@ import DecisionRoomSettings from '../models/DecisionRoomSettings'
 async function addRoomToHallway(formData) {
   const settings = DecisionRoomSettings.fromFormData(formData)
   const room = DecisionRoom.fromSettings(settings)
-  DecisionHallway.getInstance().add(room)
+  DecisionHallway.add(room)
   return room.id()
 }
 
