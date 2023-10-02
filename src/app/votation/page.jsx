@@ -1,4 +1,4 @@
-import VotationContent from './VotationContent'
+import VotationContent from './votationContent'
 
 function Votation() {
   return (

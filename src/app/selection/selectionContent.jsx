@@ -1,8 +1,11 @@
 'use client'
 
-import {Card, Form, FormGroup,Button} from 'react-bootstrap'
-import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+/* eslint-disable react/no-array-index-key */
+
+import {
+  Card, Form, FormGroup, Button,
+} from 'react-bootstrap'
+import { useSearchParams, useRouter } from 'next/navigation'
 
 function SelectionContent() {
   const router = useRouter()
@@ -19,29 +22,31 @@ function SelectionContent() {
     router.push('/')
   }
 
-    return (
-        <Card.Body>
-        <Card.Title>
-          <h2>Bienvenido a la sala {sala}.</h2>
-          <h2>Por favor genere su selección.</h2>
-        </Card.Title>
-        <Form onSubmit={(event) => handleSubmit(event)}>
+  return (
+    <Card.Body>
+      <Card.Title>
+        <h2>
+          Bienvenido a la sala
+          {sala}
+          .
+        </h2>
+        <h2>Por favor genere su selección.</h2>
+      </Card.Title>
+      <Form onSubmit={(event) => handleSubmit(event)}>
         {Array.from({ length: optionsPerUser }).map((_, i) => (
           <FormGroup className='mb-3' key={i}>
-          <Form.Control placeholder={`Opción ${i + 1}`} id={i} />
+            <Form.Control placeholder={`Opción ${i + 1}`} id={i} />
           </FormGroup>
-        ))
-        }
+        ))}
         <Button className='btn btn-danger px-3' type='button' onClick={handleCancel}>
           Abandonar sala
         </Button>
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
         </Button>
-        </Form>
-      </Card.Body>
-    )
+      </Form>
+    </Card.Body>
+  )
 }
-
 
 export default SelectionContent
