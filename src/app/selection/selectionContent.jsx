@@ -1,19 +1,26 @@
 'use client'
 
-import { 
-    Card, Form, FormGroup,Button
-  } from 'react-bootstrap'
-
-  import { useSearchParams } from 'next/navigation'
+import {Card, Form, FormGroup,Button} from 'react-bootstrap'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 function SelectionContent() {
+  const router = useRouter()
   const searchParams = useSearchParams()
- 
+
   const sala = searchParams.get('name')
   const optionsPerUser = Number(searchParams.get('options'))
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    router.push('/votation')
+  }
+  const handleCancel = () => {
+    router.push('/')
+  }
+
     return (
-        <Card.Body className='text-center'>
+        <Card.Body>
         <Card.Title>
           <h2>Bienvenido a la sala {sala}.</h2>
           <h2>Por favor genere su selección.</h2>
@@ -25,6 +32,9 @@ function SelectionContent() {
           </FormGroup>
         ))
         }
+        <Button className='btn btn-danger px-3' type='button' onClick={handleCancel}>
+          Abandonar sala
+        </Button>
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
         </Button>
