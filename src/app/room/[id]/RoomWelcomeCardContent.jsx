@@ -4,8 +4,9 @@ import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
+
 import DecisionRoom from '@/app/models/DecisionRoom'
-import User from '../../models/User'
+import User from '@/app/models/User'
 
 function RoomWelcomeCardContent({ serializedRoom }) {
   const room = DecisionRoom.deserialize(serializedRoom)
