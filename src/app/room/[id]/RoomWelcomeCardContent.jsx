@@ -4,13 +4,11 @@ import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
-import DecisionHallway from '../../models/DecisionHallway'
+import DecisionRoom from '@/app/models/DecisionRoom'
 import User from '../../models/User'
 
-function RoomWelcomeCardContent({ id }) {
-  const router = useRouter()
-  const room = DecisionHallway.decisionHallway.roomAtId(Number(id))
-
+function RoomWelcomeCardContent({ serializedRoom }) {
+  const room = DecisionRoom.deserialize(serializedRoom)
   const handleSubmit = (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
