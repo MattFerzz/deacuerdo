@@ -7,16 +7,13 @@ import {
   Card, Form,
   FormGroup, InputGroup, Modal,
 } from 'react-bootstrap'
-import DecisionHallway from '../models/DecisionHallway'
-import DecisionRoom from '../models/DecisionRoom'
-import DecisionRoomSettings from '../models/DecisionRoomSettings'
 
-function RoomCreationCardContent() {
+function RoomCreationCardContent({ addRoomToHallway }) {
   const router = useRouter()
   const [errorModalVisible, setErrorModalVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
       acc[input.id] = input.value
@@ -30,10 +27,8 @@ function RoomCreationCardContent() {
       setErrorMessage('La cantidad de participantes o de opciones por participante no pueden ser negativas.')
       setErrorModalVisible(true)
     } else {
-      const settings = DecisionRoomSettings.fromFormData(formData)
-      const room = DecisionRoom.fromSettings(settings)
-      DecisionHallway.decisionHallway.add(room)
-      router.push(`/room/${room.id()}`)
+      const id = await addRoomToHallway(formData)
+      router.push(`/room/${id}`)
     }
   }
 

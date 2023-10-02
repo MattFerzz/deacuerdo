@@ -1,7 +1,15 @@
 class DecisionHallway {
   #rooms
 
-  static decisionHallway = new this()
+  static #instance
+
+  static getInstance() {
+    if (!DecisionHallway.#instance) {
+      DecisionHallway.#instance = new DecisionHallway()
+    }
+
+    return DecisionHallway.#instance
+  }
 
   constructor() {
     this.#rooms = []

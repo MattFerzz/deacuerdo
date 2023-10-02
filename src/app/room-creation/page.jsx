@@ -1,8 +1,9 @@
+import addRoomToHallway from '../actions/DecisionHallwayActions'
 import RoomCreationCardContent from './RoomCreationCard'
 
 function RoomCreation() {
   return (
-    <RoomCreationCardContent />
+    <RoomCreationCardContent addRoomToHallway={addRoomToHallway} />
   )
 }
 

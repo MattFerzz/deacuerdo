@@ -1,14 +1,16 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
-import DecisionHallway from '../../models/DecisionHallway'
-import User from '../../models/User'
 
-function RoomWelcomeCardContent({ id }) {
-  const room = DecisionHallway.decisionHallway.roomAtId(Number(id))
+import DecisionRoom from '@/app/models/DecisionRoom'
+import User from '@/app/models/User'
 
+function RoomWelcomeCardContent({ serializedRoom }) {
+  const router = useRouter()
+  const room = DecisionRoom.deserialize(serializedRoom)
   const handleSubmit = (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
@@ -18,6 +20,7 @@ function RoomWelcomeCardContent({ id }) {
 
     const user = User.named(formData.userName)
     room.addUser(user)
+    router.push(`/selection?name=${room.description()}&options=${room.optionsPerUser()}`)
   }
 
   return (

@@ -21,6 +21,16 @@ class DecisionRoomSettings {
     this.#id = (Math.random() + 1).toString(36).substring(2)
   }
 
+  static deserialize(aSerializedSettings) {
+    return new DecisionRoomSettings(
+      aSerializedSettings.name,
+      aSerializedSettings.description,
+      aSerializedSettings.category,
+      aSerializedSettings.userAmount,
+      aSerializedSettings.optionsPerUser,
+    )
+  }
+
   static fromFormData(formData) {
     return new DecisionRoomSettings(
       formData.name,
@@ -29,6 +39,17 @@ class DecisionRoomSettings {
       formData['user-amount'],
       formData['options-per-user'],
     )
+  }
+
+  serialized() {
+    return {
+      name: this.#name,
+      description: this.#description,
+      category: this.#category,
+      userAmount: this.#userAmount,
+      optionsPerUser: this.#optionsPerUser,
+      id: this.#id,
+    }
   }
 
   name() {
