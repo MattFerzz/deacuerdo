@@ -11,8 +11,4 @@ async function addRoomToHallway(formData) {
   return room.id()
 }
 
-const DecisionHallwayActions = {
-  addRoomToHallway,
-}
-
-export default DecisionHallwayActions
+export default addRoomToHallway

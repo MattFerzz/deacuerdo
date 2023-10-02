@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup,
@@ -20,8 +21,12 @@ function RoomSelectionCardContent() {
 
       <Form onSubmit={(event) => handleSubmit(event)}>
         <FormGroup className='mb-3'>
-          <Form.Control placeholder='Ej: 2536' id='roomId' />
+          <Form.Label id='roomId'>Código de sala</Form.Label>
+          <Form.Control placeholder='1X3S2E' id='roomId' />
         </FormGroup>
+        <Button as={Link} href='/' className='float-start' variant='danger'>
+          Volver
+        </Button>
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
         </Button>

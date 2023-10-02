@@ -9,6 +9,7 @@ import DecisionRoom from '@/app/models/DecisionRoom'
 import User from '@/app/models/User'
 
 function RoomWelcomeCardContent({ serializedRoom }) {
+  const router = useRouter()
   const room = DecisionRoom.deserialize(serializedRoom)
   const handleSubmit = (event) => {
     event.preventDefault()
