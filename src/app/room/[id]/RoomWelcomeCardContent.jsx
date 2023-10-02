@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
@@ -7,6 +8,7 @@ import DecisionHallway from '../../models/DecisionHallway'
 import User from '../../models/User'
 
 function RoomWelcomeCardContent({ id }) {
+  const router = useRouter()
   const room = DecisionHallway.decisionHallway.roomAtId(Number(id))
 
   const handleSubmit = (event) => {
@@ -18,6 +20,7 @@ function RoomWelcomeCardContent({ id }) {
 
     const user = User.named(formData.userName)
     room.addUser(user)
+    router.push(`/selection?name=${room.description()}&options=${room.optionsPerUser()}`)
   }
 
   return (
