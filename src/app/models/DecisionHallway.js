@@ -1,15 +1,6 @@
+/* eslint-disable no-debugger */
 class DecisionHallway {
   #rooms
-
-  static #instance
-
-  static getInstance() {
-    if (!DecisionHallway.#instance) {
-      DecisionHallway.#instance = new DecisionHallway()
-    }
-
-    return DecisionHallway.#instance
-  }
 
   constructor() {
     this.#rooms = []
@@ -17,6 +8,7 @@ class DecisionHallway {
 
   add(aRoom) {
     this.#rooms.push(aRoom)
+    console.log('add ', JSON.stringify(this.#rooms))
   }
 
   includes(aRoom) {
@@ -24,6 +16,7 @@ class DecisionHallway {
   }
 
   roomAtId(anId) {
+    console.log('get ', JSON.stringify(this.#rooms))
     return this.withRoomAtId(
       anId,
       (roomToReturn) => roomToReturn,
@@ -36,9 +29,8 @@ class DecisionHallway {
       (room) => room.identifiedAs(anId),
     )
 
-    if (foundRoom === undefined) { return noneClosure() }
-    return foundClosure(foundRoom)
+    return foundRoom ? foundClosure(foundRoom) : noneClosure()
   }
 }
 
-export default DecisionHallway
+export default new DecisionHallway()

@@ -2,11 +2,13 @@ import DecisionHallway from '@/app/models/DecisionHallway'
 import ErrorCardContent from './ErrorCardContent'
 import RoomWelcomeCardContent from './RoomWelcomeCardContent'
 
+const hallway = DecisionHallway
+
 function RoomCardContent({ params }) {
   const { id } = params
   let room
   try {
-    room = DecisionHallway.getInstance().roomAtId(Number(id))
+    room = hallway.roomAtId(Number(id))
   } catch (error) {
     return (
       <ErrorCardContent>
