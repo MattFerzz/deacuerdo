@@ -1,12 +1,12 @@
-import DecisionHallway from '@/app/models/DecisionHallway'
+import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
 import ErrorCardContent from './ErrorCardContent'
 import RoomWelcomeCardContent from './RoomWelcomeCardContent'
 
-function RoomCardContent({ params }) {
+async function RoomCardContent({ params }) {
   const { id } = params
   let room
   try {
-    room = DecisionHallway.getInstance().roomAtId(Number(id))
+    room = await PersistentDecisionHallway.roomAtId(Number(id))
   } catch (error) {
     return (
       <ErrorCardContent>
