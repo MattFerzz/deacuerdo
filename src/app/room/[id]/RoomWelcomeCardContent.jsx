@@ -29,6 +29,10 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
     router.push(`${room.id()}/${user.name()}/selection`)
   }
 
+  const handleCancel = () => {
+    router.push('/')
+  }
+
   return (
     <Card.Body>
       <Card.Title>
@@ -53,6 +57,9 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
         </FormGroup>
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
+        </Button>
+        <Button className='btn btn-danger rounded-pill px-3' type='button' onClick={handleCancel}>
+          Volver
         </Button>
       </Form>
     </Card.Body>
