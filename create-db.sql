@@ -1,4 +1,4 @@
--- ambassador_details definition
+-- decision rooms definition
 
 CREATE TABLE `decision_rooms` (
 `id` INTEGER PRIMARY KEY AUTOINCREMENT,
