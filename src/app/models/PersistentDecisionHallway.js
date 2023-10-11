@@ -1,17 +1,27 @@
 /* eslint-disable class-methods-use-this */
+import pg from 'pg'
 import { Sequelize } from 'sequelize'
-import sqlite3 from 'sqlite3'
 import DecisionRoom from './DecisionRoom'
 import DecisionRoomSettings from './DecisionRoomSettings'
 import PersistentDecisionRoom from './PersistentDecisionRoom'
 import User from './User'
 
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './deacuerdo.db',
-  dialectModule: sqlite3,
+  dialect: 'postgres',
+  host: process.env.POSTGRES_HOST,
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DATABASE,
+  port: 5432,
+  dialectModule: pg,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 })
-
+console.log(sequelize)
 class PersistentDecisionHallway {
   async add(aRoom) {
     const room = PersistentDecisionRoom(sequelize).create({

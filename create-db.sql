@@ -1,9 +1,9 @@
 -- decision rooms definition
 
-CREATE TABLE `decision_rooms` (
-`id` INTEGER PRIMARY KEY AUTOINCREMENT,
-`settings` JSON,
-`users` JSON,
-`created_at` DATETIME NOT NULL,
-`updated_at` DATETIME NOT NULL
+CREATE TABLE decision_rooms (
+    id SERIAL PRIMARY KEY,
+    settings JSONB,
+    users JSONB,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
 );
