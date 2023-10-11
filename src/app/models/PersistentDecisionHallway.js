@@ -21,7 +21,7 @@ const sequelize = new Sequelize({
     },
   },
 })
-console.log(sequelize)
+
 class PersistentDecisionHallway {
   async add(aRoom) {
     const room = PersistentDecisionRoom(sequelize).create({
