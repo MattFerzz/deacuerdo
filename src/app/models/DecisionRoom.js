@@ -1,54 +1,38 @@
 import DecisionRoomSettings from './DecisionRoomSettings'
-import User from './User'
 
 class DecisionRoom {
-  #id
-
   #settings
 
   #users
 
-  static autoIncrementalId = 0
-
-  static nextId() {
-    this.autoIncrementalId += 1
-    return this.autoIncrementalId
-  }
-
   static fromSettings(aDecisionRoomSettings) {
-    return new this(this.nextId(), aDecisionRoomSettings)
+    return new this(aDecisionRoomSettings, [])
   }
 
   static deserialize(aSerializedRoom) {
     const settings = DecisionRoomSettings.deserialize(aSerializedRoom.settings)
-    const room = new this(aSerializedRoom.id, settings)
-    aSerializedRoom.users.forEach((serializedUser) => {
-      const user = User.deserialize(serializedUser)
-      room.addUser(user)
-    })
+    const room = new this(settings, aSerializedRoom.users)
     return room
   }
 
-  constructor(anId, aDecisionRoomSettings) {
-    this.#id = anId
+  constructor(aDecisionRoomSettings, users) {
     this.#settings = aDecisionRoomSettings
-    this.#users = []
+    this.#users = users
   }
 
   serialized() {
     return {
-      id: this.#id,
       settings: this.#settings.serialized(),
       users: this.#users.map((user) => user.serialize()),
     }
   }
 
-  id() {
-    return this.#id
+  settings() {
+    return this.#settings
   }
 
   description() {
-    return `${this.#id}-${this.#settings.name()}`
+    return `${this.#settings.id()} -> ${this.#settings.name()}`
   }
 
   name() {
@@ -67,12 +51,12 @@ class DecisionRoom {
     return this.#settings.optionsPerUser()
   }
 
-  identifiedAs(anId) {
-    return this.#id === anId
-  }
-
   addUser(anUser) {
     this.#users.push(anUser)
+  }
+
+  users() {
+    return this.#users
   }
 
   numberOfWaitingUsers() {

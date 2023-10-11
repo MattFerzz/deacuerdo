@@ -27,10 +27,13 @@ function SelectionContent() {
       <Card.Title>
         <h2>
           Bienvenido a la sala
+          {' '}
+          {'->'}
+          {' '}
           {sala}
           .
         </h2>
-        <h2>Por favor genere su selección.</h2>
+        <h3>Por favor genere su selección.</h3>
       </Card.Title>
       <Form onSubmit={(event) => handleSubmit(event)}>
         {Array.from({ length: optionsPerUser }).map((_, i) => (
