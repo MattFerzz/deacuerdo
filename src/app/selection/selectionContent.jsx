@@ -2,10 +2,11 @@
 
 /* eslint-disable react/no-array-index-key */
 
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
-  Card, Form, FormGroup, Button,
+  Button,
+  Card, Form, FormGroup,
 } from 'react-bootstrap'
-import { useSearchParams, useRouter } from 'next/navigation'
 
 function SelectionContent() {
   const router = useRouter()

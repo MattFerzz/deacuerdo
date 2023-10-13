@@ -1,30 +1,38 @@
 import DecisionRoomSettings from './DecisionRoomSettings'
 
 class DecisionRoom {
+  #id
+
   #settings
 
   #users
 
   static fromSettings(aDecisionRoomSettings) {
-    return new this(aDecisionRoomSettings, [])
+    return new this(0, aDecisionRoomSettings, [])
   }
 
   static deserialize(aSerializedRoom) {
     const settings = DecisionRoomSettings.deserialize(aSerializedRoom.settings)
-    const room = new this(settings, aSerializedRoom.users)
+    const room = new this(aSerializedRoom.id, settings, aSerializedRoom.users)
     return room
   }
 
-  constructor(aDecisionRoomSettings, users) {
+  constructor(id, aDecisionRoomSettings, users) {
+    this.#id = id
     this.#settings = aDecisionRoomSettings
     this.#users = users
   }
 
   serialized() {
     return {
+      id: this.#id,
       settings: this.#settings.serialized(),
       users: this.#users.map((user) => user.serialize()),
     }
+  }
+
+  id() {
+    return this.#id
   }
 
   settings() {
@@ -32,7 +40,7 @@ class DecisionRoom {
   }
 
   description() {
-    return `${this.#settings.id()} -> ${this.#settings.name()}`
+    return `${this.#id} -> ${this.#settings.name()}`
   }
 
   name() {

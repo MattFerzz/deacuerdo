@@ -46,6 +46,7 @@ class PersistentDecisionHallway {
       },
     })
     return new DecisionRoom(
+      anId,
       DecisionRoomSettings.deserialize(room[0].settings),
       room[0].users.map((user) => User.deserialize(user)),
     )

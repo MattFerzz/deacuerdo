@@ -1,11 +1,11 @@
 'use client'
 
+import DecisionRoom from '@/app/models/DecisionRoom'
 import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
 import InputGroup from 'react-bootstrap/InputGroup'
-import DecisionRoom from '@/app/models/DecisionRoom'
 import User from '../../models/User'
 
 function RoomWelcomeCardContent({ serializedRoom }) {
