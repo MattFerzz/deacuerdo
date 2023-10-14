@@ -8,7 +8,7 @@ import {
 import InputGroup from 'react-bootstrap/InputGroup'
 import User from '../../models/User'
 
-function RoomWelcomeCardContent({ serializedRoom }) {
+function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
   const router = useRouter()
   const room = DecisionRoom.deserialize(serializedRoom)
 
@@ -17,7 +17,7 @@ function RoomWelcomeCardContent({ serializedRoom }) {
     fontWeight: 'bold',
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
       acc[input.id] = input.value
@@ -25,7 +25,7 @@ function RoomWelcomeCardContent({ serializedRoom }) {
     }, {})
 
     const user = User.named(formData.userName)
-    room.addUser(user)
+    await addUserToRoom(user.serialized(), room.serialized())
     router.push(`/selection?name=${room.name()}&options=${room.optionsPerUser()}`)
   }
 

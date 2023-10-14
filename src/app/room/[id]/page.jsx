@@ -1,4 +1,5 @@
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
+import { addUserToRoom } from '../../actions/DecisionHallwayActions'
 import ErrorCardContent from './ErrorCardContent'
 import RoomWelcomeCardContent from './RoomWelcomeCardContent'
 
@@ -18,7 +19,7 @@ async function RoomCardContent({ params }) {
   }
 
   return (
-    <RoomWelcomeCardContent serializedRoom={room.serialized()} />
+    <RoomWelcomeCardContent serializedRoom={room.serialized()} addUserToRoom={addUserToRoom} />
   )
 }
 
