@@ -26,7 +26,7 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
 
     const user = User.named(formData.userName)
     await addUserToRoom(user.serialized(), room.serialized())
-    router.push(`/selection?name=${room.name()}&options=${room.optionsPerUser()}`)
+    router.push(`${room.id()}/${user.name()}/selection`)
   }
 
   return (
