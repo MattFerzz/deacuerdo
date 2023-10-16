@@ -22,7 +22,8 @@ class DecisionRoom {
 
   static deserialize(aSerializedRoom) {
     const settings = DecisionRoomSettings.deserialize(aSerializedRoom.settings)
-    const room = new this(aSerializedRoom.id, settings, aSerializedRoom.users)
+    const users = aSerializedRoom.users.map((anUser) => User.deserialize(anUser))
+    const room = new this(aSerializedRoom.id, settings, users)
     return room
   }
 
@@ -36,10 +37,11 @@ class DecisionRoom {
     return {
       id: this.#id,
       settings: this.#settings.serialized(),
-      users: this.#users.map((user) => user.serialize()),
+      users: this.#users.map((anUser) => anUser.serialized()),
     }
   }
 
+  // this.#users.map((elem) => console.log(JSON.stringify(elem.serialized())))
   id() {
     return this.#id
   }
@@ -72,8 +74,8 @@ class DecisionRoom {
     this.#users.push(anUser)
   }
 
-  includes(aUser) {
-    return this.#users.includes(aUser)
+  includesUserNamed(anUserName) {
+    return this.#users.some((anUser) => anUser.isNamed(anUserName))
   }
 
   users() {

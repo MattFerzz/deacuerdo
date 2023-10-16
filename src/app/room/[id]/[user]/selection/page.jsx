@@ -21,7 +21,16 @@ async function Selection({ params }) {
   }
   const userObject = User.named(user)
   const modelRoom = DecisionRoom.fromDAO(room)
-  room.includes(user)
+
+  if (!modelRoom.includesUserNamed(user)) {
+    return (
+      <ErrorCardContent>
+        El usuario no pertenece a la sala.
+        <br />
+        Verifique el nombre de usuario o unase para poder participar.
+      </ErrorCardContent>
+    )
+  }
 
   return (
     // eslint-disable-next-line max-len
