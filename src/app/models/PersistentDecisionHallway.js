@@ -2,6 +2,7 @@
 import pg from 'pg'
 import { Sequelize } from 'sequelize'
 import PersistentDecisionRoom from './PersistentDecisionRoom'
+import PersistentUserSelection from './PersistentUserSelection'
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -43,6 +44,18 @@ class PersistentDecisionHallway {
       },
     })
     return room
+  }
+
+  async addSelections(selections) {
+    const persistedSelections = selections.map(
+      (selection) => PersistentUserSelection(sequelize).create({
+        user: selection.user().serialized(),
+        roomId: selection.roomId(),
+        value: selection.value(),
+      }),
+    )
+
+    return persistedSelections
   }
 }
 

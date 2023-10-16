@@ -1,7 +1,8 @@
+import { addSelections } from '@/app/actions/DecisionHallwayActions'
+import ErrorCardContent from '@/app/components/ErrorCardContent'
 import DecisionRoom from '@/app/models/DecisionRoom'
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
-import ErrorCardContent from '../../../../components/ErrorCardContent'
-import User from '../../../../models/User'
+import User from '@/app/models/User'
 import SelectionContent from './selectionContent'
 
 async function Selection({ params }) {
@@ -34,7 +35,7 @@ async function Selection({ params }) {
 
   return (
     // eslint-disable-next-line max-len
-    <SelectionContent serializedRoom={modelRoom.serialized()} serializedUser={userObject.serialized()} />
+    <SelectionContent serializedRoom={modelRoom.serialized()} serializedUser={userObject.serialized()} addSelections={addSelections} />
   )
 }
 

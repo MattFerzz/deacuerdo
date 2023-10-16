@@ -3,19 +3,31 @@
 /* eslint-disable react/no-array-index-key */
 
 import DecisionRoom from '@/app/models/DecisionRoom'
+import User from '@/app/models/User'
+import UserSelection from '@/app/models/UserSelection'
 import { useRouter } from 'next/navigation'
 import {
   Button,
   Card, Form, FormGroup,
 } from 'react-bootstrap'
 
-function SelectionContent({ serializedRoom, serializedUser }) {
+function SelectionContent({ serializedRoom, serializedUser, addSelections }) {
   const router = useRouter()
 
   const room = DecisionRoom.deserialize(serializedRoom)
+  const user = User.deserialize(serializedUser)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    const selections = Array.from(event.target.elements).reduce((acc, input) => {
+      acc.push(UserSelection.fromUserRoomIdInput(user, room.id(), input.value))
+      return acc
+    }, [])
+
+    console.log(selections.length)
+    await addSelections(selections)
+
     router.push('./waiting')
   }
   const handleCancel = () => {

@@ -12,8 +12,6 @@ async function addRoomToHallway(formData) {
   return createdRoom.id
 }
 
-// no me gusta mucho estar serializando y deserializando constantemente
-// ver posibilidad de ir hacia un modelo totalmente persistido para evitar converciones innecesarias
 async function addUserToRoom(serializedUser, serializedRoom) {
   const room = DecisionRoom.deserialize(serializedRoom)
   const user = User.deserialize(serializedUser)
@@ -23,4 +21,9 @@ async function addUserToRoom(serializedUser, serializedRoom) {
   return user
 }
 
-export { addRoomToHallway, addUserToRoom }
+async function addSelections(selections) {
+  await PersistentDecisionHallway.addSelections(selections)
+  return selections
+}
+
+export { addRoomToHallway, addSelections, addUserToRoom }
