@@ -63,6 +63,10 @@ class DecisionRoom {
     this.#users.push(anUser)
   }
 
+  includes(aUser) {
+    return this.#users.includes(aUser)
+  }
+
   users() {
     return this.#users
   }

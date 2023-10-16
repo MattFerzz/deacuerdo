@@ -2,22 +2,21 @@
 
 /* eslint-disable react/no-array-index-key */
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
   Button,
   Card, Form, FormGroup,
 } from 'react-bootstrap'
+import DecisionRoom from '../../../../models/DecisionRoom'
 
-function SelectionContent() {
+function SelectionContent({ serializedRoom, serializedUser }) {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
-  const sala = searchParams.get('name')
-  const optionsPerUser = Number(searchParams.get('options'))
+  const room = DecisionRoom.deserialize(serializedRoom)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    router.push('/votation')
+    router.push(`${serializedRoom.id}/${serializedUser.name}/votation`)
   }
   const handleCancel = () => {
     router.push('/')
@@ -27,17 +26,18 @@ function SelectionContent() {
     <Card.Body>
       <Card.Title>
         <h2>
-          Bienvenido a la sala
+          Bienvenido
           {' '}
-          {'->'}
+          {serializedUser.name}
           {' '}
-          {sala}
-          .
+          a la sala
+          {' '}
+          {room.description()}
         </h2>
         <h3>Por favor genere su selección.</h3>
       </Card.Title>
       <Form onSubmit={(event) => handleSubmit(event)}>
-        {Array.from({ length: optionsPerUser }).map((_, i) => (
+        {Array.from({ length: room.optionsPerUser() }).map((_, i) => (
           <FormGroup className='mb-3' key={i}>
             <Form.Control placeholder={`Opción ${i + 1}`} id={i} />
           </FormGroup>
