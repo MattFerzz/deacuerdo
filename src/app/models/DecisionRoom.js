@@ -41,7 +41,6 @@ class DecisionRoom {
     }
   }
 
-  // this.#users.map((elem) => console.log(JSON.stringify(elem.serialized())))
   id() {
     return this.#id
   }
@@ -80,6 +79,10 @@ class DecisionRoom {
 
   users() {
     return this.#users
+  }
+
+  full() {
+    return this.#users.length >= this.userAmount()
   }
 
   numberOfWaitingUsers() {

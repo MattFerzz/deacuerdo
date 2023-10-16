@@ -2,12 +2,12 @@
 
 /* eslint-disable react/no-array-index-key */
 
+import DecisionRoom from '@/app/models/DecisionRoom'
 import { useRouter } from 'next/navigation'
 import {
   Button,
   Card, Form, FormGroup,
 } from 'react-bootstrap'
-import DecisionRoom from '../../../../models/DecisionRoom'
 
 function SelectionContent({ serializedRoom, serializedUser }) {
   const router = useRouter()
@@ -16,7 +16,7 @@ function SelectionContent({ serializedRoom, serializedUser }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    router.push(`${serializedRoom.id}/${serializedUser.name}/votation`)
+    router.push('./waiting')
   }
   const handleCancel = () => {
     router.push('/')
