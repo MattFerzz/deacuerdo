@@ -1,10 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import pg from 'pg'
 import { Sequelize } from 'sequelize'
-import DecisionRoom from './DecisionRoom'
-import DecisionRoomSettings from './DecisionRoomSettings'
 import PersistentDecisionRoom from './PersistentDecisionRoom'
-import User from './User'
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -40,16 +37,12 @@ class PersistentDecisionHallway {
   }
 
   async roomAtId(anId) {
-    const room = await PersistentDecisionRoom(sequelize).findAll({
+    const room = await PersistentDecisionRoom(sequelize).findOne({
       where: {
         id: anId,
       },
     })
-    return new DecisionRoom(
-      anId,
-      DecisionRoomSettings.deserialize(room[0].settings),
-      room[0].users.map((user) => User.deserialize(user)),
-    )
+    return room
   }
 }
 

@@ -1,3 +1,4 @@
+import DecisionRoom from '@/app/models/DecisionRoom'
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
 import { addUserToRoom } from '../../actions/DecisionHallwayActions'
 import ErrorCardContent from '../../components/ErrorCardContent'
@@ -18,8 +19,10 @@ async function RoomCardContent({ params }) {
     )
   }
 
+  const modelRoom = DecisionRoom.fromDAO(room)
+
   return (
-    <RoomWelcomeCardContent serializedRoom={room.serialized()} addUserToRoom={addUserToRoom} />
+    <RoomWelcomeCardContent serializedRoom={modelRoom.serialized()} addUserToRoom={addUserToRoom} />
   )
 }
 

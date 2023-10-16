@@ -19,6 +19,7 @@ async function addUserToRoom(serializedUser, serializedRoom) {
   const user = User.deserialize(serializedUser)
   room.addUser(user)
   const roomToUpdate = await PersistentDecisionHallway.roomAtId(room.id())
+  console.log(JSON.stringify(room.users()))
   roomToUpdate.users = room.users()
   return user
 }

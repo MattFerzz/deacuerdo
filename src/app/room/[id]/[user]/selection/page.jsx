@@ -1,3 +1,4 @@
+import DecisionRoom from '@/app/models/DecisionRoom'
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
 import ErrorCardContent from '../../../../components/ErrorCardContent'
 import User from '../../../../models/User'
@@ -19,10 +20,12 @@ async function Selection({ params }) {
     )
   }
   const userObject = User.named(user)
+  const modelRoom = DecisionRoom.fromDAO(room)
   room.includes(user)
 
   return (
-    <SelectionContent serializedRoom={room.serialized()} serializedUser={userObject.serialized()} />
+    // eslint-disable-next-line max-len
+    <SelectionContent serializedRoom={modelRoom.serialized()} serializedUser={userObject.serialized()} />
   )
 }
 

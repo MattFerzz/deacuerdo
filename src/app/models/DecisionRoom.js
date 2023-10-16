@@ -1,4 +1,5 @@
 import DecisionRoomSettings from './DecisionRoomSettings'
+import User from './User'
 
 class DecisionRoom {
   #id
@@ -9,6 +10,14 @@ class DecisionRoom {
 
   static fromSettings(aDecisionRoomSettings) {
     return new this(0, aDecisionRoomSettings, [])
+  }
+
+  static fromDAO(aDAO) {
+    return new this(
+      aDAO.id,
+      DecisionRoomSettings.deserialize(aDAO.settings),
+      aDAO.users.map((user) => User.deserialize(user)),
+    )
   }
 
   static deserialize(aSerializedRoom) {
