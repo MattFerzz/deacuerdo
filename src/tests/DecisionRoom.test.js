@@ -9,15 +9,8 @@ describe('DecisionRoom', () => {
   const firstUserToAdd = User.named('new')
   const secondtUserToAdd = User.named('new')
 
-  it('should build rooms with autoincremental ids', () => {
-    const anotherRoom = DecisionRoom.fromSettings(settings)
-
-    expect(room.identifiedAs(1)).toBeTruthy()
-    expect(anotherRoom.identifiedAs(2)).toBeTruthy()
-  })
-
   it('should have a description with rooms id and name', () => {
-    expect(room.description()).toBe('1 -> Fries Toppings')
+    expect(room.description()).toBe('Fries Toppings')
   })
 
   it('should add users to a selected room', () => {

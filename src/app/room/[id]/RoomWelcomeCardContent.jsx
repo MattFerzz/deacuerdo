@@ -1,15 +1,17 @@
 'use client'
 
 import DecisionRoom from '@/app/models/DecisionRoom'
-import User from '@/app/models/User'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
 import InputGroup from 'react-bootstrap/InputGroup'
+import User from '../../models/User'
 
 function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
   const router = useRouter()
+  const pathname = usePathname()
+  const id = pathname.split('/')[2]
   const room = DecisionRoom.deserialize(serializedRoom)
 
   const backgroundColorStyle = {
@@ -38,7 +40,7 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
       <Card.Title>
         Bienvenido a la sala
         {' '}
-        <InputGroup.Text style={backgroundColorStyle}>{room.description()}</InputGroup.Text>
+        <InputGroup.Text style={backgroundColorStyle}>{`${id}->${room.description()}`}</InputGroup.Text>
 
       </Card.Title>
       <Card.Header>Configuraciones de sala</Card.Header>
