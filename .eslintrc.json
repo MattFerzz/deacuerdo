@@ -27,8 +27,7 @@
       "prefer-single"
     ],
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "import/no-unresolved": "off"
+    "react/prop-types": "off"
   },
   "settings": {
     "import/resolver": {
