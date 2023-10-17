@@ -1,15 +1,17 @@
 'use client'
 
 import DecisionRoom from '@/app/models/DecisionRoom'
-import User from '@/app/models/User'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
 import InputGroup from 'react-bootstrap/InputGroup'
+import User from '../../models/User'
 
 function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
   const router = useRouter()
+  const pathname = usePathname()
+  const id = pathname.split('/')[2]
   const room = DecisionRoom.deserialize(serializedRoom)
 
   const backgroundColorStyle = {
@@ -29,12 +31,16 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
     router.push(`${room.id()}/${user.name()}/selection`)
   }
 
+  const handleCancel = () => {
+    router.push('/')
+  }
+
   return (
     <Card.Body>
       <Card.Title>
         Bienvenido a la sala
         {' '}
-        <InputGroup.Text style={backgroundColorStyle}>{room.description()}</InputGroup.Text>
+        <InputGroup.Text style={backgroundColorStyle}>{`${id}->${room.description()}`}</InputGroup.Text>
 
       </Card.Title>
       <Card.Header>Configuraciones de sala</Card.Header>
@@ -53,6 +59,9 @@ function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
         </FormGroup>
         <Button className='float-end' variant='primary' type='submit'>
           Continuar
+        </Button>
+        <Button className='btn btn-danger rounded-pill px-3' type='button' onClick={handleCancel}>
+          Volver
         </Button>
       </Form>
     </Card.Body>

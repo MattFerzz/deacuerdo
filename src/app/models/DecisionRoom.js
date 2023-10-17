@@ -57,7 +57,7 @@ class DecisionRoom {
   }
 
   description() {
-    return `${this.#id} -> ${this.#settings.name()}`
+    return this.#settings.name()
   }
 
   name() {
