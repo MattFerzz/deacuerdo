@@ -8,8 +8,15 @@ class DecisionRoom {
 
   #users
 
+  static autoIncrementalId = 0
+
+  static nextId() {
+    this.autoIncrementalId += 1
+    return this.autoIncrementalId
+  }
+
   static fromSettings(aDecisionRoomSettings) {
-    return new this(0, aDecisionRoomSettings, [])
+    return new this(this.nextId(), aDecisionRoomSettings, [])
   }
 
   static fromDAO(aDAO) {
@@ -71,6 +78,10 @@ class DecisionRoom {
 
   addUser(anUser) {
     this.#users.push(anUser)
+  }
+
+  identifiedAs(anId) {
+    return this.#id === anId
   }
 
   includesUserNamed(anUserName) {

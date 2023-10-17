@@ -17,7 +17,7 @@ describe('DecisionRoom', () => {
   })
 
   it('should have a description with rooms id and name', () => {
-    expect(room.description()).toBe('1-Fries Toppings')
+    expect(room.description()).toBe('1 -> Fries Toppings')
   })
 
   it('should add users to a selected room', () => {
