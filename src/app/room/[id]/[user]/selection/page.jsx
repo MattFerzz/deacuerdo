@@ -34,8 +34,11 @@ async function Selection({ params }) {
   }
 
   return (
-    // eslint-disable-next-line max-len
-    <SelectionContent serializedRoom={modelRoom.serialized()} serializedUser={userObject.serialized()} addSelection={addSelection} />
+    <SelectionContent
+      serializedRoom={modelRoom.serialized()}
+      serializedUser={userObject.serialized()}
+      addSelection={addSelection}
+    />
   )
 }
 
