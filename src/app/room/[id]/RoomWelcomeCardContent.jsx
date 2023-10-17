@@ -1,14 +1,14 @@
 'use client'
 
+import DecisionRoom from '@/app/models/DecisionRoom'
+import User from '@/app/models/User'
 import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
 import InputGroup from 'react-bootstrap/InputGroup'
-import DecisionRoom from '@/app/models/DecisionRoom'
-import User from '../../models/User'
 
-function RoomWelcomeCardContent({ serializedRoom }) {
+function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
   const router = useRouter()
   const room = DecisionRoom.deserialize(serializedRoom)
 
@@ -17,7 +17,7 @@ function RoomWelcomeCardContent({ serializedRoom }) {
     fontWeight: 'bold',
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
       acc[input.id] = input.value
@@ -25,8 +25,8 @@ function RoomWelcomeCardContent({ serializedRoom }) {
     }, {})
 
     const user = User.named(formData.userName)
-    room.addUser(user)
-    router.push(`/selection?name=${room.name()}&options=${room.optionsPerUser()}`)
+    await addUserToRoom(user.serialized(), room.serialized())
+    router.push(`${room.id()}/${user.name()}/selection`)
   }
 
   return (
