@@ -1,17 +1,23 @@
 'use client'
 
+import DecisionRoom from '@/app/models/DecisionRoom'
+import User from '@/app/models/User'
 import { useRouter } from 'next/navigation'
 import {
   Button, Card, Form, FormGroup, ListGroup,
 } from 'react-bootstrap'
+import InputGroup from 'react-bootstrap/InputGroup'
 
-import DecisionRoom from '@/app/models/DecisionRoom'
-import User from '@/app/models/User'
-
-function RoomWelcomeCardContent({ serializedRoom }) {
+function RoomWelcomeCardContent({ serializedRoom, addUserToRoom }) {
   const router = useRouter()
   const room = DecisionRoom.deserialize(serializedRoom)
-  const handleSubmit = (event) => {
+
+  const backgroundColorStyle = {
+    backgroundColor: '#9696ffb3',
+    fontWeight: 'bold',
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = Array.from(event.target.elements).reduce((acc, input) => {
       acc[input.id] = input.value
@@ -19,8 +25,8 @@ function RoomWelcomeCardContent({ serializedRoom }) {
     }, {})
 
     const user = User.named(formData.userName)
-    room.addUser(user)
-    router.push(`/selection?name=${room.description()}&options=${room.optionsPerUser()}`)
+    await addUserToRoom(user.serialized(), room.serialized())
+    router.push(`${room.id()}/${user.name()}/selection`)
   }
 
   return (
@@ -28,7 +34,8 @@ function RoomWelcomeCardContent({ serializedRoom }) {
       <Card.Title>
         Bienvenido a la sala
         {' '}
-        {room.description()}
+        <InputGroup.Text style={backgroundColorStyle}>{room.description()}</InputGroup.Text>
+
       </Card.Title>
       <Card.Header>Configuraciones de sala</Card.Header>
       <ListGroup flush>

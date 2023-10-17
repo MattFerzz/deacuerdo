@@ -6,7 +6,7 @@ class User {
   }
 
   static deserialize(aSerializedUser) {
-    return new this(aSerializedUser.name)
+    return this.named(aSerializedUser.name)
   }
 
   serialized() {
@@ -21,6 +21,10 @@ class User {
 
   name() {
     return this.#name
+  }
+
+  isNamed(anUserName) {
+    return this.#name === anUserName
   }
 }
 

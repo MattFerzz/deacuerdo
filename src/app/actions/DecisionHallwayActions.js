@@ -1,14 +1,29 @@
 'use server'
 
-import DecisionHallway from '../models/DecisionHallway'
 import DecisionRoom from '../models/DecisionRoom'
 import DecisionRoomSettings from '../models/DecisionRoomSettings'
+import PersistentDecisionHallway from '../models/PersistentDecisionHallway'
+import User from '../models/User'
 
 async function addRoomToHallway(formData) {
   const settings = DecisionRoomSettings.fromFormData(formData)
   const room = DecisionRoom.fromSettings(settings)
-  DecisionHallway.getInstance().add(room)
-  return room.id()
+  const createdRoom = await PersistentDecisionHallway.add(room)
+  return createdRoom.id
 }
 
-export default addRoomToHallway
+async function addUserToRoom(serializedUser, serializedRoom) {
+  const room = DecisionRoom.deserialize(serializedRoom)
+  const user = User.deserialize(serializedUser)
+  room.addUser(user)
+  const roomToUpdate = await PersistentDecisionHallway.roomAtId(room.id())
+  await roomToUpdate.update({ users: room.users().map((anUser) => anUser.serialized()) })
+  return user
+}
+
+async function addSelection(serializeSelection) {
+  await PersistentDecisionHallway.addSelection(serializeSelection)
+  return serializeSelection
+}
+
+export { addRoomToHallway, addSelection, addUserToRoom }

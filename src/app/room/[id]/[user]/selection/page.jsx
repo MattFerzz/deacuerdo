@@ -1,11 +1,13 @@
-import { addUserToRoom } from '@/app/actions/DecisionHallwayActions'
+import { addSelection } from '@/app/actions/DecisionHallwayActions'
 import ErrorCardContent from '@/app/components/ErrorCardContent'
 import DecisionRoom from '@/app/models/DecisionRoom'
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
-import RoomWelcomeCardContent from './RoomWelcomeCardContent'
+import User from '@/app/models/User'
+import SelectionContent from './SelectionContent'
 
-async function RoomCardContent({ params }) {
+async function Selection({ params }) {
   const { id } = params
+  const { user } = params
   let room
   try {
     room = await PersistentDecisionHallway.roomAtId(Number(id))
@@ -18,21 +20,26 @@ async function RoomCardContent({ params }) {
       </ErrorCardContent>
     )
   }
-
+  const userObject = User.named(user)
   const modelRoom = DecisionRoom.fromDAO(room)
-  if (modelRoom.full()) {
+
+  if (!modelRoom.includesUserNamed(user)) {
     return (
       <ErrorCardContent>
-        La sala a la que desea ingresar se encuentra llena.
+        El usuario no pertenece a la sala.
         <br />
-        Cree una nueva sala para comenzar
+        Verifique el nombre de usuario o unase para poder participar.
       </ErrorCardContent>
     )
   }
 
   return (
-    <RoomWelcomeCardContent serializedRoom={modelRoom.serialized()} addUserToRoom={addUserToRoom} />
+    <SelectionContent
+      serializedRoom={modelRoom.serialized()}
+      serializedUser={userObject.serialized()}
+      addSelection={addSelection}
+    />
   )
 }
 
-export default RoomCardContent
+export default Selection
