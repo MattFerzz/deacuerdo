@@ -11,7 +11,7 @@ import {
   Card, Form, FormGroup,
 } from 'react-bootstrap'
 
-function SelectionContent({ serializedRoom, serializedUser, addSelections }) {
+function SelectionContent({ serializedRoom, serializedUser, addSelection }) {
   const router = useRouter()
 
   const room = DecisionRoom.deserialize(serializedRoom)
@@ -25,8 +25,9 @@ function SelectionContent({ serializedRoom, serializedUser, addSelections }) {
       return acc
     }, [])
 
-    console.log(selections.length)
-    await addSelections(selections)
+    await selections.map(
+      (selection) => addSelection(selection.serialized()),
+    )
 
     router.push('./waiting')
   }

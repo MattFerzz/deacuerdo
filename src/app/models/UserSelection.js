@@ -10,7 +10,7 @@ class UserSelection {
   constructor(id, user, roomId, value) {
     this.#id = id
     this.#user = user
-    this.roomId = roomId
+    this.#roomId = roomId
     this.#value = value
   }
 
@@ -30,7 +30,7 @@ class UserSelection {
   serialized() {
     return {
       id: this.#id,
-      user: this.#user,
+      user: this.#user.name(),
       roomId: this.#roomId,
       value: this.#value,
     }
@@ -42,6 +42,10 @@ class UserSelection {
 
   user() {
     return this.#user
+  }
+
+  userName() {
+    return this.#user.name()
   }
 
   roomId() {

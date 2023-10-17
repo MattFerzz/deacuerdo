@@ -1,8 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import pg from 'pg'
 import { Sequelize } from 'sequelize'
-import PersistentDecisionRoom from './PersistentDecisionRoom'
-import PersistentUserSelection from './PersistentUserSelection'
+import { PersistentDecisionRoom, PersistentUserSelection } from './PersistentDecisionRoom'
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -46,16 +45,16 @@ class PersistentDecisionHallway {
     return room
   }
 
-  async addSelections(selections) {
-    const persistedSelections = selections.map(
-      (selection) => PersistentUserSelection(sequelize).create({
-        user: selection.user().serialized(),
-        roomId: selection.roomId(),
-        value: selection.value(),
-      }),
-    )
-
-    return persistedSelections
+  async addSelection(serializeSelection) {
+    let persistedSelection
+    if (serializeSelection.value.trim() !== '') {
+      persistedSelection = PersistentUserSelection(sequelize).create({
+        userName: serializeSelection.user,
+        roomId: serializeSelection.roomId,
+        value: serializeSelection.value,
+      })
+    }
+    return persistedSelection
   }
 }
 

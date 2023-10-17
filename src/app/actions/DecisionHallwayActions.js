@@ -21,9 +21,9 @@ async function addUserToRoom(serializedUser, serializedRoom) {
   return user
 }
 
-async function addSelections(selections) {
-  await PersistentDecisionHallway.addSelections(selections)
-  return selections
+async function addSelection(serializeSelection) {
+  await PersistentDecisionHallway.addSelection(serializeSelection)
+  return serializeSelection
 }
 
-export { addRoomToHallway, addSelections, addUserToRoom }
+export { addRoomToHallway, addSelection, addUserToRoom }
