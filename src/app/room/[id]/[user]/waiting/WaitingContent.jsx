@@ -26,35 +26,37 @@ function WaitingContent({ serializedRoom, serializedUser }) {
   }
 
   return (
-    <Card.Body>
-      <Card.Title>
-        <h2>
-          Esperando que otros usuarios terminen sus selecciones para votar en la sala:
-          {' '}
-          {room.description()}
-        </h2>
-        <h3>
-          Por favor aguarde
-          {' '}
-          {user.name()}
-          .
-        </h3>
-        <div>
-          <Image
-            src='/th-simpsons-homer.gif'
-            width={500}
-            height={500}
-            alt='Waiting gift'
-          />
-        </div>
-      </Card.Title>
-      <Button className='btn btn-danger px-3' type='button' onClick={handleCancel}>
-        Abandonar sala
-      </Button>
-      <Button className='float-end' variant='primary' type='submit' onClick={handleSubmit}>
-        Continuar
-      </Button>
-    </Card.Body>
+    <Card>
+      <Card.Body>
+        <Card.Title>
+          <h2>
+            Esperando que otros usuarios terminen sus selecciones para votar en la sala:
+            {' '}
+            {room.description()}
+          </h2>
+          <h3>
+            Por favor aguarde
+            {' '}
+            {user.name()}
+            .
+          </h3>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Image
+              src='/th-simpsons-homer.gif'
+              width={500}
+              height={500}
+              alt='Waiting gift'
+            />
+          </div>
+        </Card.Title>
+        <Button className='btn btn-danger px-3' type='button' onClick={handleCancel}>
+          Abandonar sala
+        </Button>
+        <Button className='float-end' variant='primary' type='submit' onClick={handleSubmit}>
+          Continuar
+        </Button>
+      </Card.Body>
+    </Card>
   )
 }
 
