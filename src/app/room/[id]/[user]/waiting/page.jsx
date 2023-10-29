@@ -1,3 +1,4 @@
+import { waitForSelections } from '@/app/actions/DecisionHallwayActions'
 import ErrorCardContent from '@/app/components/ErrorCardContent'
 import DecisionRoom from '@/app/models/DecisionRoom'
 import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
@@ -33,8 +34,11 @@ async function Selection({ params }) {
   }
 
   return (
-    // eslint-disable-next-line max-len
-    <WaitingContent serializedRoom={modelRoom.serialized()} serializedUser={userObject.serialized()} />
+    <WaitingContent
+      serializedRoom={modelRoom.serialized()}
+      serializedUser={userObject.serialized()}
+      waitForSelection={waitForSelections}
+    />
   )
 }
 
