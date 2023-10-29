@@ -26,4 +26,25 @@ async function addSelection(serializeSelection) {
   return serializeSelection
 }
 
-export { addRoomToHallway, addSelection, addUserToRoom }
+async function areSelectionsReady(roomID, totalSelections) {
+  const selectionsAmount = await PersistentDecisionHallway.countSelectionsIn(roomID)
+  return selectionsAmount === totalSelections
+}
+
+async function waitForSelections(roomID, totalSelections) {
+  return new Promise((resolve) => {
+    const checkReady = async () => {
+      if (await areSelectionsReady(roomID, totalSelections)) {
+        resolve()
+      } else {
+        setTimeout(checkReady, 15000) // Retry every 15s
+      }
+    }
+
+    checkReady()
+  })
+}
+
+export {
+  addRoomToHallway, addSelection, addUserToRoom, waitForSelections,
+}

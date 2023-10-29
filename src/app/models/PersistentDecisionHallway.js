@@ -56,6 +56,14 @@ class PersistentDecisionHallway {
     }
     return persistedSelection
   }
+
+  async countSelectionsIn(aRoomID) {
+    return PersistentUserSelection(sequelize).count({
+      where: {
+        roomId: aRoomID,
+      },
+    })
+  }
 }
 
 export default new PersistentDecisionHallway()
