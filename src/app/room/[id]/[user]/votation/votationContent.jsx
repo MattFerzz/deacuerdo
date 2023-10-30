@@ -29,7 +29,7 @@ function VotationContent({ serializedRoom, serializedroomSelection }) {
       </Card.Title>
       <Form onSubmit={(event) => handleSubmit(event)}>
         {options.map((selection, i) => (
-          <CheckboxOption label={selection.value()} />
+          <CheckboxOption label={selection.value()} key={i} />
         ))}
         {/* <Button className='btn btn-danger px-3' type='button'>
           Abandonar sala

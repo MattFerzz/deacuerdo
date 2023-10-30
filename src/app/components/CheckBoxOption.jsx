@@ -48,10 +48,8 @@ class CheckboxOption extends Component {
         <div style={labelStyle} >
             <span>{label}</span>
             <input 
-              id='checkbox'
               style={checkboxStyle}
               type="checkbox"
-              value={label}
               checked={isChecked}
               onChange={this.toggleCheckboxChange}
             />
