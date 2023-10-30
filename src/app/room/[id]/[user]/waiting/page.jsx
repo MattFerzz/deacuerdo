@@ -4,7 +4,7 @@ import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
 import User from '@/app/models/User'
 import WaitingContent from './WaitingContent'
 
-async function Selection({ params }) {
+async function Waiting({ params }) {
   const { id } = params
   const { user } = params
   let room
@@ -38,4 +38,4 @@ async function Selection({ params }) {
   )
 }
 
-export default Selection
+export default Waiting
