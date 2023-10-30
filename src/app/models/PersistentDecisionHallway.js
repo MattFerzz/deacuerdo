@@ -65,7 +65,6 @@ class PersistentDecisionHallway {
     })
     return selections
   }
-
 }
 
 export default new PersistentDecisionHallway()

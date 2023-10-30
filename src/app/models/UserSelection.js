@@ -1,4 +1,4 @@
-import User from "./User"
+import User from './User'
 
 class UserSelection {
   #id
@@ -25,10 +25,9 @@ class UserSelection {
       aDAO.id,
       User.named(aDAO.userName),
       aDAO.roomId,
-      aDAO.value
+      aDAO.value,
     )
   }
-
 
   static deserialize(aSerializedUserSelection) {
     return new this(
@@ -36,7 +35,7 @@ class UserSelection {
       aSerializedUserSelection.user,
       aSerializedUserSelection.roomId,
       aSerializedUserSelection.value,
-    )   
+    )
   }
 
   serialized() {
