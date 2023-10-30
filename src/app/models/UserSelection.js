@@ -1,3 +1,5 @@
+import User from './User'
+
 class UserSelection {
   #id
 
@@ -16,6 +18,15 @@ class UserSelection {
 
   static fromUserRoomIdInput(user, roomId, userInput) {
     return new this(0, user, roomId, userInput)
+  }
+
+  static fromDAO(aDAO) {
+    return new this(
+      aDAO.id,
+      User.named(aDAO.userName),
+      aDAO.roomId,
+      aDAO.value,
+    )
   }
 
   static deserialize(aSerializedUserSelection) {

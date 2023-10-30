@@ -57,6 +57,15 @@ class PersistentDecisionHallway {
     return persistedSelection
   }
 
+  async getAllSelections(id) {
+    const selections = await PersistentUserSelection(sequelize).findAll({
+      where: {
+        room_id: id,
+      },
+    })
+    return selections
+  }
+
   async countSelectionsIn(aRoomID) {
     return PersistentUserSelection(sequelize).count({
       where: {
