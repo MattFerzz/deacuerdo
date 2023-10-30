@@ -6,24 +6,27 @@ import DecisionRoom from '@/app/models/DecisionRoom'
 import User from '@/app/models/User'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import {
   Button,
   Card,
 } from 'react-bootstrap'
 
-function WaitingContent({ serializedRoom, serializedUser }) {
+function WaitingContent({ serializedRoom, serializedUser, waitForSelection }) {
   const router = useRouter()
 
   const room = DecisionRoom.deserialize(serializedRoom)
   const user = User.deserialize(serializedUser)
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    router.push('./votation')
-  }
   const handleCancel = () => {
     router.push('/')
   }
+
+  useEffect(() => {
+    waitForSelection(room.id(), room.userAmount() * room.optionsPerUser()).then(() => {
+      router.push('./votation')
+    })
+  })
 
   return (
     <Card>
@@ -51,9 +54,6 @@ function WaitingContent({ serializedRoom, serializedUser }) {
         </Card.Title>
         <Button className='btn btn-danger px-3' type='button' onClick={handleCancel}>
           Abandonar sala
-        </Button>
-        <Button className='float-end' variant='primary' type='submit' onClick={handleSubmit}>
-          Continuar
         </Button>
       </Card.Body>
     </Card>
