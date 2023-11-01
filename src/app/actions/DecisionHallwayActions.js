@@ -45,6 +45,10 @@ async function waitForSelections(roomID, totalSelections) {
   })
 }
 
+async function addVotation(serializedVotation) {
+  await PersistentDecisionHallway.addVotation(serializedVotation)
+  return serializedVotation
+}
 export {
-  addRoomToHallway, addSelection, addUserToRoom, waitForSelections,
+  addRoomToHallway, addSelection, addUserToRoom, waitForSelections, addVotation,
 }
