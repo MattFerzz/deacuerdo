@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import pg from 'pg'
 import { Sequelize } from 'sequelize'
-import { PersistentDecisionRoom, PersistentUserSelection } from './PersistentDecisionRoom'
+import { PersistentDecisionRoom, PersistentUserSelection, PersistentUserVotation } from './PersistentDecisionRoom'
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -72,6 +72,47 @@ class PersistentDecisionHallway {
         roomId: aRoomID,
       },
     })
+  }
+
+  async addVotation(userVotation) {
+    let persistedVotation
+    if (userVotation.vote.trim() !== '') {
+      persistedVotation = PersistentUserVotation(sequelize).create({
+        userName: userVotation.user,
+        roomId: userVotation.roomId,
+        vote: userVotation.vote,
+      })
+    }
+    return persistedVotation
+  }
+
+  async countDifferentVotationsIn(aRoomID) {
+    const result = await sequelize.query(`
+    SELECT COUNT(DISTINCT "user_name") AS "count"
+    FROM "user_votations"
+    WHERE "room_id" = :roomID
+  `, {
+      replacements: { roomID: aRoomID },
+      type: Sequelize.QueryTypes.SELECT,
+    })
+
+    return result[0].count
+  }
+
+  async getWinnerOption(id) {
+    const result = await sequelize.query(`
+      SELECT "vote", COUNT(*) AS "count"
+      FROM "user_votations"
+      WHERE "room_id" = :roomID
+      GROUP BY "vote"
+      ORDER BY "count" DESC
+      LIMIT 1
+    `, {
+      replacements: { roomID: id },
+      type: Sequelize.QueryTypes.SELECT,
+    })
+
+    return result[0].vote
   }
 }
 

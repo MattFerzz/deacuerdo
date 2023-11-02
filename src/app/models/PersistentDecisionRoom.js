@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import DecisionRoom from './DecisionRoom'
 import UserSelection from './UserSelection'
+import UserVotation from './UserVotation'
 
 const PersistentDecisionRoom = (aSequelizeClient) => aSequelizeClient.define('DecisionRoom', {
   id: {
@@ -64,4 +65,37 @@ PersistentUserSelection.serialize = () => {
   return JSON.parse(serializedUserSelection)
 }
 
-export { PersistentDecisionRoom, PersistentUserSelection }
+const PersistentUserVotation = (aSequelizeClient) => aSequelizeClient.define('UserVotation', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  userName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  roomId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  vote: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+}, {
+  timestamps: true,
+  underscored: true,
+})
+
+PersistentUserVotation.deserialize = (serializedVotation) => {
+  const deserializedUserVotation = UserVotation.deserialize(JSON.parse(serializedVotation))
+  return deserializedUserVotation
+}
+
+PersistentUserVotation.serialize = () => {
+  const serializedUserVotation = this.getDataValue('serializedUserVotation')
+  return JSON.parse(serializedUserVotation)
+}
+
+export { PersistentDecisionRoom, PersistentUserSelection, PersistentUserVotation }
