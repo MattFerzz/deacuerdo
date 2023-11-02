@@ -1,8 +1,9 @@
 'use client'
 
+import React, { useState } from 'react'
 import {
   Button,
-  Card, Form,
+  Card, Form, Modal, Image,
 } from 'react-bootstrap'
 import DecisionRoom from '@/app/models/DecisionRoom'
 import CheckboxOption from '@/app/components/CheckBoxOption'
@@ -24,9 +25,17 @@ function VotationContent({
   const room = DecisionRoom.deserialize(serializedRoom)
   const options = serializedroomSelection.map((option) => UserSelection.deserialize(option))
   const user = User.deserialize(serializedUser)
+  const [showModal, setShowModal] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    const checkedInputs = Array.from(event.target.elements).filter((input) => input.checked)
+
+    if (checkedInputs.length === 0) {
+      setShowModal(true)
+      return
+    }
 
     const votes = Array.from(event.target.elements).reduce((acc, input) => {
       if (input.checked) {
@@ -45,6 +54,10 @@ function VotationContent({
     router.push('/')
   }
 
+  const handleModalClose = () => {
+    setShowModal(false)
+  }
+
   return (
     <Card.Body>
       <Card.Title>
@@ -61,6 +74,26 @@ function VotationContent({
           Continuar
         </Button>
       </Form>
+      <Modal show={showModal} onHide={handleModalClose} style={{ backgroundColor: 'rgb(234,234,255)' }}>
+        <Modal.Header closeButton />
+        <Modal.Title style={{ textAlign: 'center' }}>Aviso</Modal.Title>
+        <Modal.Body>
+          Debes seleccionar al menos una opción antes de continuar.
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Image
+              src='/gif-muñeco.gif'
+              width={200}
+              height={200}
+              alt='Waiting gift'
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className='btn btn-secondary rounded-pill px-3' variant='primary' onClick={handleModalClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Card.Body>
   )
 }
