@@ -16,3 +16,12 @@ CREATE TABLE user_selections (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
+
+CREATE TABLE user_votations (
+    id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255),
+    room_id INTEGER,
+    vote VARCHAR(255),
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);

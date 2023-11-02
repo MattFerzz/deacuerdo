@@ -2,10 +2,13 @@ import PersistentDecisionHallway from '@/app/models/PersistentDecisionHallway'
 import DecisionRoom from '@/app/models/DecisionRoom'
 import ErrorCardContent from '@/app/components/ErrorCardContent'
 import UserSelection from '@/app/models/UserSelection'
+import { addVotation } from '@/app/actions/DecisionHallwayActions'
+import User from '@/app/models/User'
 import VotationContent from './votationContent'
 
 async function Votation({ params }) {
   const { id } = params
+  const { user } = params
 
   let room
   try {
@@ -33,13 +36,16 @@ async function Votation({ params }) {
     )
   }
 
+  const userObject = User.named(user)
   const modelRoom = DecisionRoom.fromDAO(room)
   const modelSelection = roomSelection.map((selection) => UserSelection.fromDAO(selection))
 
   return (
     <VotationContent
       serializedRoom={modelRoom.serialized()}
+      serializedUser={userObject.serialized()}
       serializedroomSelection={modelSelection.map((selection) => selection.serialized())}
+      addVotation={addVotation}
     />
   )
 }
