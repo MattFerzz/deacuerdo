@@ -17,7 +17,7 @@ CREATE TABLE user_selections (
     updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE user_votation (
+CREATE TABLE user_votations (
     id SERIAL PRIMARY KEY,
     user_name VARCHAR(255),
     room_id INTEGER,

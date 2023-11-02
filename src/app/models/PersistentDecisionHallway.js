@@ -85,6 +85,35 @@ class PersistentDecisionHallway {
     }
     return persistedVotation
   }
+
+  async countDifferentVotationsIn(aRoomID) {
+    const result = await sequelize.query(`
+    SELECT COUNT(DISTINCT "user_name") AS "count"
+    FROM "user_votations"
+    WHERE "room_id" = :roomID
+  `, {
+      replacements: { roomID: aRoomID },
+      type: Sequelize.QueryTypes.SELECT,
+    })
+
+    return result[0].count
+  }
+
+  async getWinnerOption(id) {
+    const result = await sequelize.query(`
+      SELECT "vote", COUNT(*) AS "count"
+      FROM "user_votations"
+      WHERE "room_id" = :roomID
+      GROUP BY "vote"
+      ORDER BY "count" DESC
+      LIMIT 1
+    `, {
+      replacements: { roomID: id },
+      type: Sequelize.QueryTypes.SELECT,
+    })
+
+    return result[0].vote
+  }
 }
 
 export default new PersistentDecisionHallway()

@@ -49,6 +49,26 @@ async function addVotation(serializedVotation) {
   await PersistentDecisionHallway.addVotation(serializedVotation)
   return serializedVotation
 }
+
+async function isWinnerReady(roomID, totalUsers) {
+  const diferentselectionsAmount = await PersistentDecisionHallway.countDifferentVotationsIn(roomID)
+  return diferentselectionsAmount === totalUsers
+}
+
+async function waitForWinner(roomID, totalUsers) {
+  return new Promise((resolve) => {
+    const checkReady = async () => {
+      if (await isWinnerReady(roomID, totalUsers)) {
+        resolve()
+      } else {
+        setTimeout(checkReady, 15000) // Retry every 15s
+      }
+    }
+
+    checkReady()
+  })
+}
+
 export {
-  addRoomToHallway, addSelection, addUserToRoom, waitForSelections, addVotation,
+  addRoomToHallway, addSelection, addUserToRoom, waitForSelections, addVotation, waitForWinner,
 }

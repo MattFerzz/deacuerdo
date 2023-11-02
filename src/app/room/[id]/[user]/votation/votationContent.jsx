@@ -39,7 +39,7 @@ function VotationContent({
       (vote) => addVotation(vote.serialized()),
     )
 
-    // router.push('./waiting')
+    router.push('./waitingForWinner')
   }
   const handleCancel = () => {
     router.push('/')
