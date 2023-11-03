@@ -81,10 +81,11 @@ function VotationContent({
           Debes seleccionar al menos una opción antes de continuar.
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Image
-              src='/gif-muñeco.gif'
-              width={200}
-              height={200}
-              alt='Waiting gift'
+              src='/deformito.jpg'
+              width={150}
+              height={150}
+              alt='warning gift'
+              style={{ marginTop: '10px' }}
             />
           </div>
         </Modal.Body>
