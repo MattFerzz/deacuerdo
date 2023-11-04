@@ -63,7 +63,12 @@ class PersistentDecisionHallway {
         room_id: id,
       },
     })
-    return selections
+    const uniqueSelections = selections.filter((selection, index, self) => {
+      const lowerCaseValue = selection.value.toLowerCase()
+      const firstIndex = self.findIndex((s) => s.value.toLowerCase() === lowerCaseValue)
+      return index === firstIndex
+    })
+    return uniqueSelections
   }
 
   async countSelectionsIn(aRoomID) {
