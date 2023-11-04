@@ -5,7 +5,7 @@ import { useState } from 'react'
 import {
   Button,
   Card, Form,
-  FormGroup, InputGroup, Modal,
+  FormGroup, InputGroup, Modal, Image,
 } from 'react-bootstrap'
 
 function RoomCreationCardContent({ addRoomToHallway }) {
@@ -83,6 +83,15 @@ function RoomCreationCardContent({ addRoomToHallway }) {
         </Modal.Header>
         <Modal.Body>
           <p>{errorMessage}</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Image
+              src='/deformito2.jpg'
+              width={150}
+              height={150}
+              alt='warning gift'
+              style={{ marginTop: '10px' }}
+            />
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button className='btn btn-secondary rounded-pill px-3' variant='secondary' onClick={() => setErrorModalVisible(false)}>
