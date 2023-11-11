@@ -17,7 +17,10 @@ async function addUserToRoom(serializedUser, serializedRoom) {
   const user = User.deserialize(serializedUser)
   room.addUser(user)
   const roomToUpdate = await PersistentDecisionHallway.roomAtId(room.id())
-  await roomToUpdate.update({ users: room.users().map((anUser) => anUser.serialized()) })
+  await roomToUpdate.update({
+    users:
+    roomToUpdate.users.concat(room.users().map((anUser) => anUser.serialized())),
+  })
   return user
 }
 
@@ -70,5 +73,5 @@ async function waitForWinner(roomID, totalUsers) {
 }
 
 export {
-  addRoomToHallway, addSelection, addUserToRoom, waitForSelections, addVotation, waitForWinner,
+  addRoomToHallway, addSelection, addUserToRoom, addVotation, waitForSelections, waitForWinner,
 }
