@@ -64,8 +64,8 @@ class PersistentDecisionHallway {
       },
     })
     const uniqueSelections = selections.filter((selection, index, self) => {
-      const lowerCaseValue = selection.value.toLowerCase()
-      const firstIndex = self.findIndex((s) => s.value.toLowerCase() === lowerCaseValue)
+      const lowerCaseValue = selection.value.toLowerCase().replace(/\s+/g, '')
+      const firstIndex = self.findIndex((s) => s.value.toLowerCase().replace(/\s+/g, '') === lowerCaseValue)
       return index === firstIndex
     })
     return uniqueSelections
@@ -109,7 +109,7 @@ class PersistentDecisionHallway {
       SELECT "vote", COUNT(*) AS "count"
       FROM "user_votations"
       WHERE "room_id" = :roomID
-      GROUP BY "vote"
+      GROUP BY LOWER(REPLACE("vote", ' ', ''))
       ORDER BY "count" DESC
       LIMIT 1
     `, {
