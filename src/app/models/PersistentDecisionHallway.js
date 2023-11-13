@@ -106,10 +106,10 @@ class PersistentDecisionHallway {
 
   async getWinnerOption(id) {
     const result = await sequelize.query(`
-      SELECT "vote", COUNT(*) AS "count"
+      SELECT vote, COUNT(*) AS "count"
       FROM "user_votations"
       WHERE "room_id" = :roomID
-      GROUP BY LOWER(REPLACE("vote", ' ', ''))
+      GROUP BY LOWER(REPLACE("vote", ' ', '')), vote
       ORDER BY "count" DESC
       LIMIT 1
     `, {
