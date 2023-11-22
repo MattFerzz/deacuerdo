@@ -30,8 +30,11 @@ function SelectionContent({ serializedRoom, serializedUser, addSelection }) {
         return acc
       }, [])
 
-      await selections.map(
+      /* await selections.map(
         (selection) => addSelection(selection.serialized()),
+      ) */
+      await Promise.all(
+        selections.map((selection) => addSelection(selection.serialized())),
       )
 
       router.push('./waiting')
